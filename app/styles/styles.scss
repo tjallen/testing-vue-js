@@ -1,0 +1,56 @@
+@charset "utf-8";
+
+@import "normalize";
+@import "bourbon";
+@import "neat";
+@import "../../node_modules/material-colors/dist/colors.scss";
+
+// required if using svg icon spritesheets
+.hide {
+	display: none;
+}
+
+body {
+	background-color: $md-grey-100;
+	padding: 20px;
+}
+
+.mydiv {
+	display: flex;
+}
+
+h1 {
+	//@include linear-gradient(to top, red, orange);
+	text-align: center;
+	color: #555;
+	border-bottom: 5px solid purple;
+}
+
+div {
+	line-height: 2em;
+	text-align: left;
+	padding: 1em;
+}
+
+.wrapper {
+	@include outer-container;
+}
+
+div#alpha {
+	@include span-columns(6);
+}
+
+div#beta {
+	@include span-columns(6);
+}
+
+.flex {
+	@include display(flex);
+	@include flex-direction(row);
+	@include align-items(flex-start);
+	@include justify-content(space-between);
+}
+
+.flex > .box {
+	@include flex(1);
+}

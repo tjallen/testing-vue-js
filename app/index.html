@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title></title>
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="apple-touch-icon" href="apple-touch-icon.png">
+		<!-- inject:css -->
+		<!-- endinject -->
+
+		<!-- main user styles -->
+		<link rel="stylesheet" href="styles/styles.css">
+	</head>
+
+	<body>
+		<!-- inject:svg -->
+		<!-- endinject -->
+
+		<main>
+
+			<h1>Vuejs testival</h1>
+			<p>Basic todo example w/ delicious FOUT</p>
+			<div id="app">
+				<input v-model="newTodo" v-on:keyup.enter="addTodo" placeholder="Add some todos">
+				<button v-model="newTodo" v-on:click="addTodo">Submit</button>
+				<ul>
+					<li v-for="todo in todos">
+						<span>{{todo.text}}</span>
+						<button v-on:click="removeTodo($index)">X</button>
+					</li>
+				</ul>
+			</div>
+
+		</main>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+		<!--inject:js-->
+		<script src="scripts/vendors/vue.js"></script>
+		<script src="scripts/main.js"></script>
+		<!--endinject-->
+	</body>
+</html>
