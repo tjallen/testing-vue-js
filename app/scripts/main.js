@@ -1,11 +1,15 @@
 
-new Vue({
-	el: '#app',
-	data: {
+// Model
+var exampleData = {
 		newTodo: '',
 		todos: [
 		]
-	},
+};
+
+// ViewModel
+new Vue({
+	el: '#app',
+	data: exampleData,
 	methods: {
 		addTodo: function() {
 			var text = this.newTodo.trim();
