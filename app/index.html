@@ -46,8 +46,16 @@
 						{{ task.text }}
 					</span>
 					<span class="controls">
-						<button @click="toggleEdit( task )">Edit</button>
-						<button @click="toggleCompleted( task )">X</button>
+						<button @click="toggleEdit( task )"
+						v-if="!task.completed" 
+						>Edit</button>
+
+						<button @click="toggleCompleted( task )"
+						v-if="!task.completed" 
+						>X</button>
+						<button v-else
+							@click="toggleCompleted( task )" 
+						>Undo</button>
 					</span>
 
 					<input type="text"  

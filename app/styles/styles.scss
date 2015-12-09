@@ -15,8 +15,32 @@ body {
 	padding: 20px;
 }
 
-.list-group-item .controls {
-	float: right;
+.list-group-item {
+	input {
+		border: none;
+	}
+	.taskname {
+	}
+	.controls {
+		float: right;
+		button {
+			text-transform: uppercase;
+			color: $md-blue-grey-500;
+			border: none;
+			background-color: transparent;
+		}
+	}
+	&.editing {
+		input {
+			width: auto;
+			border-bottom: 1px solid $md-grey-300;
+			box-sizing: border-box;
+		}
+	}
+	&.completed {
+		text-decoration: line-through;
+		color: $md-grey-300;
+	}
 }
 
 .counter {
@@ -29,18 +53,10 @@ body {
 	letter-spacing: 1px;
 	span.num {
 		color: #fff;
+		border-radius: 15px;
 		background-color: $md-blue-grey-300;
 		padding: 2px 5px;
 	}
-}
-
-.completed {
-	text-decoration: line-through;
-	color: $md-grey-300;
-}
-
-.editing {
-	background-color: $md-blue-grey-100;
 }
 
 pre {
