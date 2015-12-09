@@ -27,12 +27,36 @@
 		
 		<div id="app">
 
-			<ul>
-				<li :class="{ 'completed' : task.completed }" 
-				v-for="task in tasks" 
-				@click="task.completed = ! task.completed">
-				{{ task.text }}
+			<input 
+				v-model="newTask" 
+				@keyup.enter="addTask" 
+				placeholder="add a task..." 
+				class="form-control"
+			>
+
+			<ul class="list-group">
+				<li class="list-group-item" 
+					:class="{ 'completed' : task.completed, 'editing' : task.editing }" 
+					v-for="task in tasks" 
+				>
+					<span class="taskname" 
+						v-show="!task.editing"
+					>
+						{{ task.text }}
+					</span>
+					<span class="controls">
+						<button @click="toggleEdit( task )">Edit</button>
+						<button @click="toggleCompleted( task )">X</button>
+					</span>
+
+					<input 
+						v-if="task.editing" 
+						v-model="editedTask" 
+						@keyup.enter="toggleEdit"
+						placeholder="{{ task.text }}"
+					>
 				</li>
+
 			</ul>
 
 

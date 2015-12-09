@@ -15,10 +15,15 @@ body {
 	padding: 20px;
 }
 
-.list-group-item button, a {
+.list-group-item .controls {
 	float: right;
 }
 
 .completed {
 	text-decoration: line-through;
+	color: $md-grey-300;
+}
+
+.editing {
+	background-color: $md-blue-grey-100;
 }
