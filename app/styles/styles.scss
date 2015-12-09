@@ -19,6 +19,21 @@ body {
 	float: right;
 }
 
+.counter {
+	color: $md-blue-grey-200;
+	margin: 10px;
+	text-align: center;
+	text-transform: uppercase;
+	font-size: 12px;
+	font-weight: bold;
+	letter-spacing: 1px;
+	span.num {
+		color: #fff;
+		background-color: $md-blue-grey-300;
+		padding: 2px 5px;
+	}
+}
+
 .completed {
 	text-decoration: line-through;
 	color: $md-grey-300;
@@ -26,4 +41,12 @@ body {
 
 .editing {
 	background-color: $md-blue-grey-100;
+}
+
+pre {
+	margin: {
+		top: 10px;
+		bottom: 10px;
+	}
+	font-size: 10px;
 }

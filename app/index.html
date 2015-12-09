@@ -25,16 +25,16 @@
 		<h1>Vue.js tasks</h1>
 		
 		<div id="app">
+			
 			<div class="form-group">
-				<input 
-					class="form-control"
+				<input type="text" class="form-control"
 					v-model="newTask" 
 					@keyup.enter="addTask" 
-					placeholder="add a task..." 
+					placeholder="Add a task..." 
 				>
 			</div>
 
-
+			<p class="counter"><span class="num">{{ remaining }}</span> tasks left</p>
 			<ul class="list-group">
 				<li class="list-group-item" 
 					:class="{ 'completed' : task.completed, 'editing' : task.editing }" 
@@ -50,15 +50,23 @@
 						<button @click="toggleCompleted( task )">X</button>
 					</span>
 
-					<input 
+					<input type="text"  
 						v-if="task.editing" 
 						v-model="editedTask" 
-						@keyup.enter="completeEdit( task )"
+						@keyup.enter="completeEdit( task )" 
+						@blur="toggleEdit( task )" 
 						placeholder="{{ task.text }}"
 					>
 				</li>
-
 			</ul>
+
+			<button class="btn btn-default" 
+			@click="clearCompleted" 
+			>
+			Clear completed
+			</button>
+
+			<template id="tasks-template"></template>
 
 
 			<pre>{{ $data | json }}</pre>

@@ -11,6 +11,28 @@ var vm = new Vue({
 			{ text: "A completed task", completed: true, editing: false } 
 		]
 	},
+	filters: {
+		all: function( tasks ) {
+			return tasks.filter( function ( task ) {
+				return tasks;
+			});
+		},
+		active: function( tasks ) {
+			return tasks.filter( function ( task ) {
+				return ! task.completed;
+			});
+		},
+		completed: function( tasks ) {
+			return tasks.filter( function ( task ) {
+				return task.completed;
+			});
+		}
+	},
+	computed: {
+		remaining: function() {
+			return this.$options.filters.active( this.tasks ).length;
+		}
+	},
 	methods: {
 		addTask: function() {
 			var text = this.newTask.trim();
@@ -20,6 +42,7 @@ var vm = new Vue({
 			}
 		},
 		toggleEdit: function( task ) {
+			// req: set other tasks to .editing = false (only allow 1 to be edited)
 			task.editing = ! task.editing;
 			this.editedTask = task.text;
 		},
@@ -30,6 +53,9 @@ var vm = new Vue({
 		},
 		toggleCompleted: function( task ) {
 			task.completed = ! task.completed;
+		},
+		clearCompleted: function() {
+			this.tasks = this.$options.filters.active( this.tasks );
 		}
 	}
 });
