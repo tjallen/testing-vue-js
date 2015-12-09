@@ -67,10 +67,10 @@ Scripts
 gulp.task('scripts', function() {
 	gulp.src('app/scripts/**/*.js')
 		.pipe($.plumber({errorHandler: onErr}))
-		.pipe($.sourcemaps.init())
+		//.pipe($.sourcemaps.init())
 		.pipe(gulp.dest('.tmp/scripts'))
-		.pipe($.if('*.js', $.uglify()))
-		.pipe($.sourcemaps.write('.'))
+		//.pipe($.if('*.js', $.uglify()))
+		//.pipe($.sourcemaps.write('.'))
 		.pipe($.size({title: 'scripts'}))
 		.pipe(gulp.dest('dist/scripts'));
 });

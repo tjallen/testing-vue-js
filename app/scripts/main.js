@@ -15,14 +15,20 @@ var vm = new Vue({
 		addTask: function() {
 			var text = this.newTask.trim();
 			if ( text ) {
-				this.tasks.push( { text:text, completed: false } );
+				this.tasks.push({ text: text, completed: false });
 				this.newTask = '';
 			}
 		},
 		toggleEdit: function( task ) {
 			task.editing = ! task.editing;
+			this.editedTask = task.text;
 		},
-		toggleCompleted: function ( task ) {
+		completeEdit: function( task, cb ) {
+			task.text = this.editedTask.trim();
+			this.editedTask = '';
+			task.editing = false;
+		},
+		toggleCompleted: function( task ) {
 			task.completed = ! task.completed;
 		}
 	}

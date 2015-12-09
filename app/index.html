@@ -13,8 +13,7 @@
 	
 	<!-- main user styles -->
 	<link rel="stylesheet" href="styles/styles.css">
-	
-	<script src="scripts/vendors/vue.js"></script>
+
 </head>
 
 <body>
@@ -26,13 +25,15 @@
 		<h1>Vue.js tasks</h1>
 		
 		<div id="app">
+			<div class="form-group">
+				<input 
+					class="form-control"
+					v-model="newTask" 
+					@keyup.enter="addTask" 
+					placeholder="add a task..." 
+				>
+			</div>
 
-			<input 
-				v-model="newTask" 
-				@keyup.enter="addTask" 
-				placeholder="add a task..." 
-				class="form-control"
-			>
 
 			<ul class="list-group">
 				<li class="list-group-item" 
@@ -52,7 +53,7 @@
 					<input 
 						v-if="task.editing" 
 						v-model="editedTask" 
-						@keyup.enter="toggleEdit"
+						@keyup.enter="completeEdit( task )"
 						placeholder="{{ task.text }}"
 					>
 				</li>
@@ -68,6 +69,7 @@
 	</main>
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script src="scripts/vendors/vue.js"></script>
 	
 	<!--inject:js-->
 	<script src="scripts/vendors/bootstrap.min.js"></script>
