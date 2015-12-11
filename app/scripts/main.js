@@ -1,12 +1,9 @@
 Vue.config.debug = true;
 
-// define w/ constructor
-var MyComp = Vue.extend({
-	template: '<div>Here lies a custom component</div>'
+// extend and register in a single step
+Vue.component('my-component', {
+	template: '<div>Here lies a custom component!</div>'
 });
-
-// register the component with its tag
-Vue.component('my-component', MyComp);
 
 var vm = new Vue({
 	el: '#app',
