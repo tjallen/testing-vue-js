@@ -1,8 +1,13 @@
 Vue.config.debug = true;
 
-// extend and register in a single step
+// extend and register a global component in 1 step
 Vue.component('my-component', {
-	template: '<div>Here lies a custom component!</div>'
+	template: '#my-template',
+	props: ['subject'],
+	// use return for data in components = not shared
+	data: function() {
+		return { answer: 42 };
+	}
 });
 
 var vm = new Vue({

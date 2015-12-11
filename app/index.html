@@ -79,10 +79,16 @@
 
 			<pre>{{ $data | json }}</pre>
 
-			<my-component></my-component>
+			<my-component subject="The answer to life, etc"></my-component>
 
 
 		</div> <!-- end app -->
+
+		<!-- tbd replace w/ vueify or similar -->
+		<template id="my-template">
+			<p>{{ subject }}</p>
+			<p>{{ answer }}</p>
+		</template>
 		
 	</main>
 	
