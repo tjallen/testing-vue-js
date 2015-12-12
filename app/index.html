@@ -25,6 +25,14 @@
 		<h1>Vue.js tasks</h1>
 		
 		<div id="app">
+
+			<tasks-component :list="tasks">
+			</tasks-component>
+
+		</div> <!-- end app -->
+
+		<!-- tbd replace w/ vueify or similar -->
+		<template id="tasks-template">
 			
 			<div class="form-group">
 				<input type="text" class="form-control"
@@ -34,36 +42,34 @@
 				>
 			</div>
 
-			<p class="counter"><span class="num">{{ remaining }}</span> tasks left</p>
+			<p v-show="remaining" class="counter"><span class="num">{{ remaining }}</span> left</p>
+			<p v-show="!remaining" class="counter">All done!</p>
 			<ul class="list-group">
 				<li class="list-group-item" 
 					:class="{ 'completed' : task.completed, 'editing' : task.editing }" 
-					v-for="task in tasks" 
+					v-for="task in list" 
 				>
-					<span class="taskname" 
+<!-- 					<span class="taskname" 
 						v-show="!task.editing"
 					>
 						{{ task.text }}
-					</span>
+					</span> -->
 					<span class="controls">
-						<button @click="toggleEdit( task )"
-						v-if="!task.completed" 
-						>Edit</button>
 
-						<button @click="toggleCompleted( task )"
-						v-if="!task.completed" 
+						<input type="checkbox"
+						v-model="task.completed">
+						<button @click="deleteTask( task )"
 						>X</button>
-						<button v-else
-							@click="toggleCompleted( task )" 
-						>Undo</button>
 					</span>
 
-					<input type="text"  
-						v-if="task.editing" 
-						v-model="editedTask" 
+					<!-- <label>{{ task.text }}</label> -->
+
+					<input type="text" 
+						@click="startEdit( task )" 
 						@keyup.enter="completeEdit( task )" 
-						@blur="toggleEdit( task )" 
-						placeholder="{{ task.text }}"
+						@keyup.esc="cancelEdit( task )" 
+						@blur="completeEdit( task )" 
+						v-model="task.text"
 					>
 				</li>
 			</ul>
@@ -74,20 +80,7 @@
 			Clear completed
 			</button>
 
-			<template id="tasks-template"></template>
-
-
 			<pre>{{ $data | json }}</pre>
-
-			<my-component subject="The answer to life, etc"></my-component>
-
-
-		</div> <!-- end app -->
-
-		<!-- tbd replace w/ vueify or similar -->
-		<template id="my-template">
-			<p>{{ subject }}</p>
-			<p>{{ answer }}</p>
 		</template>
 		
 	</main>
