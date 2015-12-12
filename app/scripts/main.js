@@ -1,27 +1,91 @@
 Vue.config.debug = true;
 
 // extend and register a global component in 1 step
-Vue.component('my-component', {
-	template: '#my-template',
-	props: ['subject'],
-	// use return for data in components = not shared
+var VC = Vue.component('tasks-component', {
+	template: '#tasks-template',
 	data: function() {
-		return { answer: 42 };
+		return {
+			newTask: '',
+			editedTask: null,
+		};
+	},
+	props: ['list'],
+	computed: {
+		// compute remaining active tasks
+		remaining: function() {
+			return this.list.filter( this.isActive ).length;
+		},
+		// compute completed tasks on list
+		completed: function() {
+			return this.list.filter( this.isComplete ).length;
+		}
+	},
+	methods: {
+		addTask: function() {
+			var text = this.newTask.trim();
+			if ( text ) {
+				this.list.push({ text: text, completed: false});
+				this.newTask = '';
+			}
+		},
+		deleteTask: function( task ) {
+			this.list.$remove( task );
+		},
+		isComplete: function( task ) {
+			return task.completed;
+		},
+		isActive: function ( task ) {
+			return ! this.isComplete( task );
+		},
+		toggleCompleted: function ( task ) {
+			task.completed = ! task.completed;
+		},
+		startEdit: function( task ) {
+			this.originalText = task.text;
+			this.editedTask = task;
+		},
+		completeEdit: function( task ) {
+			if ( !this.editedTask ) {
+				return;
+			}
+			this.editedTask = '';
+			task.text = task.text;
+			// if text is empty, delete this task
+			if ( !task.text ) {
+				this.deleteTask( task );
+			}
+		},
+		cancelEdit: function( task ) {
+			task.text = this.originalText;
+			this.editedTask = null;
+		},
+		clearCompleted: function() {
+			this.list = this.list.filter( this.isActive );
+		}
+	},
+	directives: {
+		// only focus on input after dom has updated
+		'task-focus': function( val ) {
+			if ( !val ) {
+				return;
+			}
+			var el = this.el;
+			Vue.nextTick(function() {
+				el.focus();
+			});
+		}
 	}
 });
 
 var vm = new Vue({
 	el: '#app',
 	data: {
-		newTask: '',
-		editedTask: '',
 		tasks: [
-			{ text: "A task", completed: false, editing: false },
-			{ text: "A task", completed: false, editing: false },
-			{ text: "A completed task", completed: true, editing: false } 
+			{ text: "A task", completed: false },
+			{ text: "A completed task", completed: true } 
 		]
-	},
-	filters: {
+	}
+/*	filters: {
 		all: function( tasks ) {
 			return tasks.filter( function ( task ) {
 				return tasks;
@@ -37,35 +101,5 @@ var vm = new Vue({
 				return task.completed;
 			});
 		}
-	},
-	computed: {
-		remaining: function() {
-			return this.$options.filters.active( this.tasks ).length;
-		}
-	},
-	methods: {
-		addTask: function() {
-			var text = this.newTask.trim();
-			if ( text ) {
-				this.tasks.push({ text: text, completed: false });
-				this.newTask = '';
-			}
-		},
-		toggleEdit: function( task ) {
-			// req: set other tasks to .editing = false (only allow 1 to be edited)
-			task.editing = ! task.editing;
-			this.editedTask = task.text;
-		},
-		completeEdit: function( task, cb ) {
-			task.text = this.editedTask.trim();
-			this.editedTask = '';
-			task.editing = false;
-		},
-		toggleCompleted: function( task ) {
-			task.completed = ! task.completed;
-		},
-		clearCompleted: function() {
-			this.tasks = this.$options.filters.active( this.tasks );
-		}
-	}
+	}*/
 });
