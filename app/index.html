@@ -33,14 +33,19 @@
 
 		<!-- tbd replace w/ vueify or similar -->
 		<template id="tasks-template">
-			
-			<div class="form-group">
-				<input type="text" class="form-control"
-					v-model="newTask" 
-					placeholder="Add a task to do..." 
-					@keyup.enter="addTask" 
-				>
-			</div>
+			<form class="form-inline">
+				<div class="form-group">
+					<input type="text" class="form-control"
+						v-model="newTask" 
+						placeholder="Add a task to do..." 
+						@keyup.enter.prevent="addTask" 
+					>
+					<button class="task-submit-new" 
+						v-if="newTask" 
+						@click.prevent="addTask"
+					>Submit</button>
+				</div>
+			</form>
 
 			<div class="tasks-list"
 				v-show="list.length"
