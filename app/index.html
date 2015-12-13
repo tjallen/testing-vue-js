@@ -40,7 +40,7 @@
 						placeholder="Add a task to do..." 
 						@keyup.enter.prevent="addTask" 
 					>
-					<button class="task-submit-new" 
+					<button class="btn btn-default task-submit-new" 
 						v-if="newTask" 
 						@click.prevent="addTask"
 					>Submit</button>
@@ -76,7 +76,7 @@
 					</li>
 				</ul>
 
-				<button class="btn btn-default" 
+				<button class="btn btn-default clear-completed" 
 				v-show="completed" 
 				@click="clearCompleted"  
 				>
