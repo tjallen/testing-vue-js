@@ -1,1 +1,2 @@
-## just messing around with vue.js
+trying vuejs + related things
+starting w/ a basic task tracker / todo app
